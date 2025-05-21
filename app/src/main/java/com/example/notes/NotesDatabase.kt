@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Notes::class], version = 1)  // we have 1 Notes table & the class which defines what it should look like
+@Database(entities = [Notes::class], version = 1, exportSchema = false)  // we have 1 Notes table & the class which defines what it should look like
 abstract class NotesDatabase : RoomDatabase() {
     abstract fun notesDao(): NotesDao
 
