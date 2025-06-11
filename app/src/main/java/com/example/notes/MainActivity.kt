@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         tabLayout.addTab(tabLayout.newTab().setText("Hightlights"))
         tabLayout.addTab(tabLayout.newTab().setText("Fav"))
 
+
         viewPager2.adapter = fragmentPageAdapter
 
         tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
