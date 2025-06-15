@@ -5,7 +5,8 @@
     <color name="grey_notes_text">#6D6D6D</color>
     <color name="grey_bg">#F2F2F2</color>
     <color name="grey_bg_text">#C5C5C5</color>"
-    <color name="heart_red">#FFADAD</color>
+    <color name="heart_border_red">#FFADAD</color>
+    <color name="heart_red">#E04646</color>
     <color name="heart_grey">#F9F5F5</color>
 </resources>
 

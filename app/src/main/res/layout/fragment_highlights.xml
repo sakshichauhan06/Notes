@@ -5,11 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".HighlightsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/highlights"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Highlights"
-        android:gravity="center"/>
+        android:layout_height="match_parent"/>
 
 </FrameLayout>
