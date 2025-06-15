@@ -15,6 +15,16 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import java.util.Locale
+
+fun String.capitalizeFirstLetter(): String {
+    if (this.isEmpty()) return this
+    return this.replaceFirstChar {
+        if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+    }
+}
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,45 +43,16 @@ class MainActivity : AppCompatActivity() {
         viewPager2 = findViewById(R.id.viewPager2)
 
         fragmentPageAdapter = FragmentPageAdapter(supportFragmentManager, lifecycle)
-
-        tabLayout.addTab(tabLayout.newTab().setText("Notes"))
-        tabLayout.addTab(tabLayout.newTab().setText("Hightlights"))
-        tabLayout.addTab(tabLayout.newTab().setText("Fav"))
-
-
         viewPager2.adapter = fragmentPageAdapter
 
-        tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (tab != null) {
-                    viewPager2.currentItem = tab.position
-                }
+        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
+            tab.text = when (position) {
+                0 -> "notes".capitalizeFirstLetter()
+                1 -> "highlights".capitalizeFirstLetter()
+                2 -> "fav".capitalizeFirstLetter()
+                else -> "Tab ${position + 1}"
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
-
-        } )
-
-        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                tabLayout.selectTab(tabLayout.getTabAt(position))
-            }
-        })
-
-        // Get a reference to the RecyclerView
-        val recyclerView: RecyclerView = findViewById(R.id.NotesList)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        // Create an adapter (initially with an empty list)
-        notesAdapter = NotesAdapter(emptyList())
-        recyclerView.adapter = notesAdapter
+        }.attach()
 
         // Get a reference to NotesDao
         val notesDao = NotesDatabase.getDatabase(application).notesDao()
@@ -88,11 +69,6 @@ class MainActivity : AppCompatActivity() {
         // Get the ViewModel using the factory
         notesViewModel = ViewModelProvider(this, factory)[NotesViewModel::class.java]
 
-        // Observe the LiveData and update the adapter when the data changes
-        notesViewModel.allNotes.observe(this, Observer {
-            notes ->
-                notesAdapter.updateNotes(notes)
-        })
 
         // get a reference to the addNoteButton
         val addNoteButton: ImageButton = findViewById(R.id.addNoteButton)
