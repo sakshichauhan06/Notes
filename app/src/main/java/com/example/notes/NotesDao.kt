@@ -23,4 +23,7 @@ interface NotesDao {
 
     @Query("SELECT * FROM notes where id = :id")
     fun getNotesById(id: Int) : Flow<Notes>
+
+    @Query("SELECT * FROM notes where isFavorite = 'true'")
+    fun getFavNotes() : Flow<List<Notes>>
 }

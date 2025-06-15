@@ -30,7 +30,7 @@ class AllNotesFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.NotesList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        notesAdapter = NotesAdapter(emptyList())
+        notesAdapter = NotesAdapter(emptyList(), notesViewModel)
         recyclerView.adapter = notesAdapter
 
         val notesDao = NotesDatabase.getDatabase(requireContext().applicationContext).notesDao()

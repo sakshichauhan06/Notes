@@ -8,5 +8,6 @@ data class Notes(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val title: String,
-    val content: String
+    val content: String,
+    val isFavorite: Boolean = false
 )
