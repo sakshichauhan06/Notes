@@ -3,10 +3,10 @@ package com.example.notes
 import kotlinx.coroutines.flow.Flow
 
 class NotesRepository (private val notesDao: NotesDao) {
-    val allNotes: Flow<List<Notes>> = notesDao.getAllNotes()
-    val favNotes: Flow<List<Notes>> = notesDao.getFavNotes()
+    val allNotes = notesDao.getAllNotes()
+    val favNotes = notesDao.getFavNotes()
 
-    fun getNoteById(id: Int): Flow<Notes> = notesDao.getNotesById(id)
+    fun getNoteById(id: Int) = notesDao.getNotesById(id)
 
     suspend fun insert(notes: Notes) {
         notesDao.insert(notes)

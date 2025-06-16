@@ -27,17 +27,16 @@ class AllNotesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.NotesList)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        notesAdapter = NotesAdapter(emptyList(), notesViewModel)
-        recyclerView.adapter = notesAdapter
-
         val notesDao = NotesDatabase.getDatabase(requireContext().applicationContext).notesDao()
         val repository = NotesRepository(notesDao)
         val factory = NotesViewModelFactory(repository)
 
         notesViewModel = ViewModelProvider(requireActivity(), factory) [NotesViewModel::class.java]
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.NotesList)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        notesAdapter = NotesAdapter(emptyList(), notesViewModel)
+        recyclerView.adapter = notesAdapter
 
         notesViewModel.allNotes.observe(viewLifecycleOwner) { notes ->
             notesAdapter.updateNotes(notes)

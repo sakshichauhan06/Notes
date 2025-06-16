@@ -19,11 +19,11 @@ interface NotesDao {
     suspend fun delete(notes: Notes)
 
     @Query("SELECT * FROM notes")
-    fun getAllNotes() : Flow<List<Notes>>
+    fun getAllNotes(): Flow<List<Notes>>
 
-    @Query("SELECT * FROM notes where id = :id")
-    fun getNotesById(id: Int) : Flow<Notes>
+    @Query("SELECT * FROM notes WHERE id = :id")
+    fun getNotesById(id: Int): Flow<Notes>
 
-    @Query("SELECT * FROM notes where isFavorite = 'true'")
-    fun getFavNotes() : Flow<List<Notes>>
+    @Query("SELECT * FROM notes WHERE isFavorite = 1")
+    fun getFavNotes(): Flow<List<Notes>>
 }
