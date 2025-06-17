@@ -36,8 +36,6 @@ class FavFragment : Fragment() {
         favNotesAdapter = NotesAdapter(emptyList(), favNotesViewModel)
         recyclerView.adapter = favNotesAdapter
 
-//        favNotesViewModel = ViewModelProvider(requireActivity(), favFactory) [NotesViewModel::class.java]
-
         favNotesViewModel.favNotes.observe(viewLifecycleOwner) { favNotes ->
             favNotesAdapter.updateNotes(favNotes)
         }

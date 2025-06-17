@@ -1,5 +1,7 @@
 package com.example.notes
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +32,7 @@ class NotesAdapter(
             holder.title.text = note.title
             holder.content.text = note.content
 
+            // set the heart
             if(note.isFavorite) {
                 holder.favBtn.setIconResource(R.drawable.ic_favorite)
                 holder.favBtn.setIconTintResource(R.color.heart_red)
@@ -38,6 +41,7 @@ class NotesAdapter(
                 holder.favBtn.setIconTintResource(R.color.heart_border_red)
             }
 
+            // make a note fav or unfav
             holder.favBtn.setOnClickListener {
                 val newFavoriteState = !note.isFavorite
                 val updatedNote = note.copy(isFavorite = newFavoriteState)
@@ -53,6 +57,37 @@ class NotesAdapter(
                     holder.favBtn.setIconTintResource(R.color.heart_border_red)
                     Toast.makeText(holder.itemView.context, "Removed from favorites", Toast.LENGTH_SHORT).show()
                 }
+            }
+
+            // delete or share
+            holder.itemView.setOnLongClickListener {
+                AlertDialog.Builder(holder.itemView.context)
+                    .setTitle("Choose an option")
+                    .setItems(arrayOf("Delete", "Share")) { dialog, which ->
+                        when (which) {
+                            0 -> {
+                                AlertDialog.Builder(holder.itemView.context)
+                                    .setTitle("Delete Note")
+                                    .setMessage("Are you sure you want to delete this note?")
+                                    .setPositiveButton("Yes") { dialog, which ->
+                                        notesViewModel.delete(note)
+                                        Toast.makeText(holder.itemView.context, "Note Deleted", Toast.LENGTH_SHORT).show()
+                                    }
+                                    .setNegativeButton("No", null)
+                                    .show()
+                            }
+                            1 -> {
+                                val intent = Intent().apply {
+                                    action = Intent.ACTION_SEND
+                                    putExtra(Intent.EXTRA_TEXT, "${note.title}\n\n${note.content}")
+                                    type = "text/plain"
+                                }
+                                val context = holder.itemView.context
+                                context.startActivity(Intent.createChooser(intent, "Share via"))
+                            }
+                        }
+                    }.show()
+                true
             }
         }
 
