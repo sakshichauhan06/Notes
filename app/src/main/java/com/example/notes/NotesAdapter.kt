@@ -89,6 +89,11 @@ class NotesAdapter(
                     }.show()
                 true
             }
+
+            // create a note
+            holder.itemView.setOnClickListener {
+                
+            }
         }
 
         override fun getItemCount(): Int {
