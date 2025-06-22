@@ -5,9 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class AllNotesFragment : Fragment() {
@@ -37,6 +42,14 @@ class AllNotesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         notesAdapter = NotesAdapter(emptyList(), notesViewModel)
         recyclerView.adapter = notesAdapter
+
+
+
+        val addNoteButton: ImageButton = view.findViewById(R.id.addNoteButton)
+        addNoteButton.setOnClickListener {
+            val action = AllNotesFragmentDirections.actionAllNotesFragmentToAddEditNoteFragment(-1)
+            it.findNavController().navigate(action)
+        }
 
         notesViewModel.allNotes.observe(viewLifecycleOwner) { notes ->
             notesAdapter.updateNotes(notes)

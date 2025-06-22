@@ -71,19 +71,6 @@ class MainActivity : AppCompatActivity() {
         notesViewModel = ViewModelProvider(this, factory)[NotesViewModel::class.java]
 
 
-        // get a reference to the addNoteButton
-        val addNoteButton: ImageButton = findViewById(R.id.addNoteButton)
-
-        // set a click listener on the button
-        addNoteButton.setOnClickListener {
-            // create a sample note
-            val sampleNote = Notes(title = "Shopping List", content = "This is a sample note added at ${System.currentTimeMillis()}")
-            // insert the sample note into the database
-            notesViewModel.insert(sampleNote)
-            // optional: show a toast message
-            Toast.makeText(this, "Sample note added!", Toast.LENGTH_SHORT).show()
-        }
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
