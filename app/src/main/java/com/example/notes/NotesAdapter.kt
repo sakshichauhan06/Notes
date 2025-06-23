@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import com.example.notes.AllNotesFragmentDirections
 
 class NotesAdapter(
     private var notesList: List<Notes>,
@@ -94,8 +93,10 @@ class NotesAdapter(
 
             // opens an existing note
             holder.itemView.setOnClickListener {
-                val action = AllNotesFragmentDirections.actionAllNotesFragmentToNoteDetailFragment(note.id)
-                holder.itemView.findNavController().navigate(action)
+                val context = holder.itemView.context
+                val intent = Intent(context, NoteDetailActivity::class.java)
+                intent.putExtra("noteId", note.id)
+                context.startActivity(intent)
             }
         }
 

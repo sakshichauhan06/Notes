@@ -1,5 +1,6 @@
 package com.example.notes
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -47,9 +48,13 @@ class AllNotesFragment : Fragment() {
 
         val addNoteButton: ImageButton = view.findViewById(R.id.addNoteButton)
         addNoteButton.setOnClickListener {
-            val action = AllNotesFragmentDirections.actionAllNotesFragmentToAddEditNoteFragment(-1)
-            it.findNavController().navigate(action)
+            val intent = Intent(requireContext(), NoteDetailActivity::class.java)
+            // Optional: pass an ID for editing or -1 for new note
+            intent.putExtra("noteId", -1)
+            startActivity(intent)
         }
+
+
 
         notesViewModel.allNotes.observe(viewLifecycleOwner) { notes ->
             notesAdapter.updateNotes(notes)
