@@ -12,7 +12,7 @@ class NoteDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_detail)
 
-        val noteId = intent.getLongExtra("noteId", -1)
+        val noteId = intent.getIntExtra("noteId", -1)
 
         val notesDao = NotesDatabase.getDatabase(application).notesDao()
         val repository = NotesRepository(notesDao)
