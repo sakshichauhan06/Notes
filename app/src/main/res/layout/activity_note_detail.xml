@@ -2,20 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="22dp"
     android:orientation="vertical">
 
-    <TextView
+    <EditText
         android:id="@+id/note_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="22sp"
+        android:text="Shopping list for Mondaysss"
         android:textStyle="bold"/>
 
-    <TextView
+    <EditText
         android:id="@+id/note_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim nisi sed hendrerit ullamcorper. Maecenas eu lorem nisi. Nullam dictum porttitor euismod. Integer commodo nisl semper nisi mattis porttitor. Ut a commodo libero. Nam in leo in libero eleifend ultrices vitae nec ipsum. Vivamus bibendum pharetra erat, quis elementum sem feugiat eu. Vivamus ac mi nec diam eleifend ornare id in ante. Etiam elementum lacus non pulvinar viverra. Curabitur auctor rutrum convallis. Praesent sollicitudin erat non nunc ultrices vulputate. In ultricies placerat dictum.
+Etiam in volutpat erat. Praesent posuere lorem augue, eget venenatis est mollis lobortis. Etiam at scelerisque odio. In ornare neque vel odio convallis, sed vehicula lorem convallis. Etiam auctor maximus tortor, vel tincidunt nisl semper vitae. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque tincidunt auctor pharetra."
         android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"/>
 
 </LinearLayout>
