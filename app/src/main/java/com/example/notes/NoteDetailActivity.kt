@@ -15,6 +15,8 @@ class NoteDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_detail)
 
+        setSupportActionBar(findViewById(R.id.editNotes_toolbar))
+
         val noteId = intent.getIntExtra("noteId", -1)
 
         val notesDao = NotesDatabase.getDatabase(application).notesDao()
