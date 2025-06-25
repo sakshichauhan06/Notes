@@ -1,6 +1,7 @@
 package com.example.notes
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -15,7 +16,7 @@ class NoteDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_detail)
 
-        setSupportActionBar(findViewById(R.id.editNotes_toolbar))
+        setSupportActionBar(findViewById(R.id.edit_notes_toolbar))
 
         val noteId = intent.getIntExtra("noteId", -1)
 
@@ -65,6 +66,24 @@ class NoteDetailActivity : AppCompatActivity() {
             }
 
             finish() // goes back to AllNotes
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_back -> {
+            // User chose the "Back" action, mark the current page as home
+            true
+        }
+
+        R.id.action_save -> {
+            // User chose the "Save" action, mark the current page as home
+            true
+        }
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
         }
     }
 }

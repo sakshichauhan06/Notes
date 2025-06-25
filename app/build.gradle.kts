@@ -66,5 +66,4 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.material.v1110)
 
-
 }
