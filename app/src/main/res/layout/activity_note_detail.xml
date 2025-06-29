@@ -1,60 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:id="@+id/appBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/edit_notes_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/grey_bg"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            tools:layout_editor_absoluteY="0dp"
-            tools:lyout_editor_abssoluteX="0dp">
+            app:title=""
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+<!--            inside the toolbar-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical">
+
+<!--                back icon & label -->
+                <LinearLayout
+                    android:id="@+id/back_button_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/back_arrow"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/back_arrow"
+                        android:layout_marginEnd="4dp"/>
+
+                    <TextView
+                        android:id="@+id/toolbar_back_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Back"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/toolbar_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
-d
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <EditText
         android:id="@+id/note_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:maxLines="5"
+        android:layout_marginTop="16dp"
         android:background="@null"
+        android:maxLines="5"
         android:text="Shopping list for Mondaysss"
-        android:textStyle="bold"/>
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/created_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
+        android:id="@+id/created_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:text="Sun, 22 Dec 24"
         android:textSize="13sp"
-        android:textStyle="italic"/>
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/note_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/note_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:background="@null"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim nisi sed hendrerit ullamcorper. Maecenas eu lorem nisi. Nullam dictum porttitor euismod. Integer commodo nisl semper nisi mattis porttitor. Ut a commodo libero. Nam in leo in libero eleifend ultrices vitae nec ipsum. Vivamus bibendum pharetra erat, quis elementum sem feugiat eu. Vivamus ac mi nec diam eleifend ornare id in ante. Etiam elementum lacus non pulvinar viverra. Curabitur auctor rutrum convallis. Praesent sollicitudin erat non nunc ultrices vulputate. In ultricies placerat dictum.
 Etiam in volutpat erat. Praesent posuere lorem augue, eget venenatis est mollis lobortis. Etiam at scelerisque odio. In ornare neque vel odio convallis, sed vehicula lorem convallis. Etiam auctor maximus tortor, vel tincidunt nisl semper vitae. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque tincidunt auctor pharetra."
-        android:layout_marginTop="16dp"/>
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.379" />
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"/>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
