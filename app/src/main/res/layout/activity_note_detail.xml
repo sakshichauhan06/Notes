@@ -1,49 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/edit_notes_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/grey_bg"
-            app:title=""
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="">
 
-<!--            inside the toolbar-->
-            <RelativeLayout
+            <!-- Use ConstraintLayout inside the Toolbar -->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
-<!--                back icon & label -->
+                <!-- Back icon & label -->
                 <LinearLayout
                     android:id="@+id/back_button_container"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
                     <ImageView
                         android:id="@+id/back_arrow"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:src="@drawable/back_arrow"
-                        android:layout_marginEnd="4dp"/>
+                        android:layout_marginEnd="4dp" />
 
                     <TextView
                         android:id="@+id/toolbar_back_text"
@@ -52,10 +50,10 @@
                         android:text="Back"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
-
+                        android:textStyle="bold" />
                 </LinearLayout>
 
+                <!-- Save Text -->
                 <TextView
                     android:id="@+id/toolbar_save"
                     android:layout_width="wrap_content"
@@ -64,58 +62,46 @@
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
-
-            </RelativeLayout>
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
+
 
     <EditText
         android:id="@+id/note_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="12dp"
         android:background="@null"
-        android:maxLines="5"
+        android:maxLines="2"
         android:text="Shopping list for Mondaysss"
         android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/created_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintVertical_bias="1.0" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/created_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:layout_marginHorizontal="12dp"
         android:text="Sun, 22 Dec 24"
         android:textSize="13sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/note_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textStyle="italic"/>
 
     <EditText
         android:id="@+id/note_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
         android:background="@null"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim nisi sed hendrerit ullamcorper. Maecenas eu lorem nisi. Nullam dictum porttitor euismod. Integer commodo nisl semper nisi mattis porttitor. Ut a commodo libero. Nam in leo in libero eleifend ultrices vitae nec ipsum. Vivamus bibendum pharetra erat, quis elementum sem feugiat eu. Vivamus ac mi nec diam eleifend ornare id in ante. Etiam elementum lacus non pulvinar viverra. Curabitur auctor rutrum convallis. Praesent sollicitudin erat non nunc ultrices vulputate. In ultricies placerat dictum.
 Etiam in volutpat erat. Praesent posuere lorem augue, eget venenatis est mollis lobortis. Etiam at scelerisque odio. In ornare neque vel odio convallis, sed vehicula lorem convallis. Etiam auctor maximus tortor, vel tincidunt nisl semper vitae. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque tincidunt auctor pharetra."
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintVertical_bias="0.379" />
+        android:textSize="18sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
