@@ -1,16 +1,13 @@
 package com.example.notes
 
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.notes.R.*
+import androidx.appcompat.widget.Toolbar
 
 class NoteDetailActivity : AppCompatActivity() {
 
@@ -18,9 +15,11 @@ class NoteDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_note_detail)
+        setContentView(R.layout.activity_note_detail)
 
-        setSupportActionBar(findViewById(id.edit_notes_toolbar))
+        // import toolbar
+        val toolbar = findViewById<Toolbar>(R.id.edit_notes_toolbar)
+        setSupportActionBar(toolbar)
 
         val noteId = intent.getIntExtra("noteId", -1)
 
@@ -29,23 +28,16 @@ class NoteDetailActivity : AppCompatActivity() {
         val factory = NotesViewModelFactory(repository)
         notesViewModel = ViewModelProvider(this, factory) [NotesViewModel::class.java]
 
-//        val toolbar = findViewById<Toolbar>(R.id.edit_notes_toolbar)
-//        setSupportActionBar(toolbar)
-        val backButton = findViewById<LinearLayout>(id.back_button_container)
-        val saveButton = findViewById<TextView>(id.toolbar_save)
+        val backButton = findViewById<LinearLayout>(R.id.back_button_container)
+        val saveButton = findViewById<TextView>(R.id.toolbar_save)
 
         val titleText = findViewById<EditText>(R.id.note_title)
         val contextText = findViewById<EditText>(R.id.note_content)
 
-        // toolbar actions: back and save
+        // toolbar actions: back
         backButton.setOnClickListener {
             finish()
         }
-        saveButton.setOnClickListener {
-            val title = titleText.text.toString()
-            val content = contextText.text.toString()
-        }
-
 
         if (noteId != -1) {
             // load from DB if there is an existing note
@@ -55,12 +47,9 @@ class NoteDetailActivity : AppCompatActivity() {
                     contextText.setText(it.content)
                 }
             }
-        } else {
-            // create a new note
-            titleText.setText("")
-            contextText.setText("")
         }
 
+        // save note
         saveButton.setOnClickListener {
             val title = titleText.text.toString()
             val content = contextText.text.toString()
