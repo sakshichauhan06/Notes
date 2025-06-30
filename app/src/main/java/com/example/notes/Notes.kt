@@ -9,5 +9,7 @@ data class Notes(
     val id: Int = 0,
     val title: String,
     val content: String,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val createdAt: Long,
+    val lastModified: Long
 )

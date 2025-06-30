@@ -42,6 +42,13 @@ class NoteDetailActivity : AppCompatActivity() {
         if (noteId != -1) {
             // load from DB if there is an existing note
             notesViewModel.getNoteById(noteId).observe(this) { note ->
+                val updatedNote = Notes(
+                    id = note.id,
+                    title = note.title,
+                    content = note.content,
+                    createdAt = note.createdAt,
+                    lastModified = System.currentTimeMillis()
+                )
                 note?.let {
                     titleText.setText(it.title)
                     contextText.setText(it.content)
@@ -53,6 +60,8 @@ class NoteDetailActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             val title = titleText.text.toString()
             val content = contextText.text.toString()
+            val createdAt = System.currentTimeMillis()
+            val lastModified = System.currentTimeMillis()
 
             if(title.isEmpty() && content.isEmpty()) {
                 Toast.makeText(this, "Cannot save empty note",
@@ -62,12 +71,12 @@ class NoteDetailActivity : AppCompatActivity() {
 
             if (noteId == -1) {
                 // insert the new note
-                val newNote = Notes(title = title, content = content)
+                val newNote = Notes(title = title, content = content, createdAt = System.currentTimeMillis(), lastModified = System.currentTimeMillis())
                 notesViewModel.insert(newNote)
                 Toast.makeText(this, "Note saved!", Toast.LENGTH_SHORT).show()
             } else {
                 // update the existing note
-                val updateNote = Notes(id = noteId, title = title, content = content)
+                val updateNote = Notes(id = noteId, title = title, content = content, createdAt = createdAt, lastModified = lastModified)
                 notesViewModel.update(updateNote)
                 Toast.makeText(this, "Note Updated!", Toast.LENGTH_SHORT).show()
             }
