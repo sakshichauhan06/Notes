@@ -60,7 +60,7 @@ class NoteDetailActivity : AppCompatActivity() {
                     contextText.setText(it.content)
 
                     // to display the last modified date
-                    val formatter = SimpleDateFormat("EEE, d MMM yyyy HH:mm a", Locale.getDefault())
+                    val formatter = SimpleDateFormat("d MMM yy HH:mm a", Locale.getDefault())
                     val formattedDate = formatter.format(Date(it.lastModified))
                     lastModifiedText.text = "Last modified: $formattedDate"
                 }
