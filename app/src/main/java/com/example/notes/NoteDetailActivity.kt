@@ -8,10 +8,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.appcompat.widget.Toolbar
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class NoteDetailActivity : AppCompatActivity() {
 
     private lateinit var notesViewModel: NotesViewModel
+    private var existingNote: Notes? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +37,7 @@ class NoteDetailActivity : AppCompatActivity() {
 
         val titleText = findViewById<EditText>(R.id.note_title)
         val contextText = findViewById<EditText>(R.id.note_content)
+        val lastModifiedText = findViewById<TextView>(R.id.last_modified_date)
 
         // toolbar actions: back
         backButton.setOnClickListener {
@@ -50,8 +55,14 @@ class NoteDetailActivity : AppCompatActivity() {
                     lastModified = System.currentTimeMillis()
                 )
                 note?.let {
+                    existingNote = it
                     titleText.setText(it.title)
                     contextText.setText(it.content)
+
+                    // to display the last modified date
+                    val formatter = SimpleDateFormat("EEE, d MMM yyyy HH:mm a", Locale.getDefault())
+                    val formattedDate = formatter.format(Date(it.lastModified))
+                    lastModifiedText.text = "Last modified: $formattedDate"
                 }
             }
         }
@@ -71,14 +82,34 @@ class NoteDetailActivity : AppCompatActivity() {
 
             if (noteId == -1) {
                 // insert the new note
-                val newNote = Notes(title = title, content = content, createdAt = System.currentTimeMillis(), lastModified = System.currentTimeMillis())
+                val newNote = Notes(
+                    title = title,
+                    content = content,
+                    createdAt = System.currentTimeMillis(),
+                    lastModified = System.currentTimeMillis()
+                )
                 notesViewModel.insert(newNote)
                 Toast.makeText(this, "Note saved!", Toast.LENGTH_SHORT).show()
             } else {
                 // update the existing note
-                val updateNote = Notes(id = noteId, title = title, content = content, createdAt = createdAt, lastModified = lastModified)
-                notesViewModel.update(updateNote)
-                Toast.makeText(this, "Note Updated!", Toast.LENGTH_SHORT).show()
+                existingNote?.let { note ->
+                    val updateNote = Notes(
+                        id = noteId,
+                        title = title,
+                        content = content,
+                        createdAt = note.createdAt,
+                        lastModified = System.currentTimeMillis()
+                    )
+                    notesViewModel.update(updateNote)
+                    Toast.makeText(this, "Note Updated!", Toast.LENGTH_SHORT).show()
+                } ?: run {
+                    Toast.makeText(this, "Note not ready yet!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener // we are inside the lamda funtion so return does not mean exit
+                    // the activiy, it just means stop here inside this button click handler — do not continue
+                    // to the rest of the logic (like saving the note or finishing the activity)
+                    // also our note will not crash if the user clicks too fast without it being loaded from our DB
+
+                }
             }
 
             finish() // goes back to AllNotes
