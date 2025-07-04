@@ -16,7 +16,7 @@ class FragmentPageAdapter (
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> AllNotesFragment()
-            1 -> HighlightsFragment()
+            1 -> TagsFragment()
             else -> FavFragment()
         }
     }

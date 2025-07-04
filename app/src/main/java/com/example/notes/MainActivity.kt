@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             tab.text = when (position) {
                 0 -> "notes".capitalizeFirstLetter()
-                1 -> "highlights".capitalizeFirstLetter()
+                1 -> "tags".capitalizeFirstLetter()
                 2 -> "fav".capitalizeFirstLetter()
                 else -> "Tab ${position + 1}"
             }
