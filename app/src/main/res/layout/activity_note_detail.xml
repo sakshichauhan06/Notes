@@ -103,5 +103,20 @@
         android:background="@null"
         android:textSize="18sp" />
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/note_tags_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:singleLine="false"
+        app:chipSpacing="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 </LinearLayout>

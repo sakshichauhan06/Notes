@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 class NotesRepository (private val notesDao: NotesDao) {
     val allNotes = notesDao.getAllNotes()
     val favNotes = notesDao.getFavNotes()
+    val tagNotes = notesDao.getNotesByTag("#")
 
     fun getNoteById(id: Int) = notesDao.getNotesById(id)
 

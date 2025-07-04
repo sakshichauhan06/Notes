@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.chip.ChipGroup
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -39,6 +40,8 @@ class NoteDetailActivity : AppCompatActivity() {
         val contextText = findViewById<EditText>(R.id.note_content)
         val lastModifiedText = findViewById<TextView>(R.id.last_modified_date)
 
+        val chipGroup = findViewById<ChipGroup>(R.id.note_tags_chip_group)
+
         // toolbar actions: back
         backButton.setOnClickListener {
             finish()
@@ -52,7 +55,8 @@ class NoteDetailActivity : AppCompatActivity() {
                     title = note.title,
                     content = note.content,
                     createdAt = note.createdAt,
-                    lastModified = System.currentTimeMillis()
+                    lastModified = System.currentTimeMillis(),
+                    tags = note.tags
                 )
                 note?.let {
                     existingNote = it
@@ -86,7 +90,8 @@ class NoteDetailActivity : AppCompatActivity() {
                     title = title,
                     content = content,
                     createdAt = System.currentTimeMillis(),
-                    lastModified = System.currentTimeMillis()
+                    lastModified = System.currentTimeMillis(),
+                    tags = emptyList()
                 )
                 notesViewModel.insert(newNote)
                 Toast.makeText(this, "Note saved!", Toast.LENGTH_SHORT).show()
@@ -98,7 +103,8 @@ class NoteDetailActivity : AppCompatActivity() {
                         title = title,
                         content = content,
                         createdAt = note.createdAt,
-                        lastModified = System.currentTimeMillis()
+                        lastModified = System.currentTimeMillis(),
+                        tags = note.tags
                     )
                     notesViewModel.update(updateNote)
                     Toast.makeText(this, "Note Updated!", Toast.LENGTH_SHORT).show()

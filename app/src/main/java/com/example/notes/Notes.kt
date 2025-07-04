@@ -11,5 +11,6 @@ data class Notes(
     val content: String,
     val isFavorite: Boolean = false,
     val createdAt: Long,
-    val lastModified: Long
+    val lastModified: Long,
+    val tags: List<String>
 )
