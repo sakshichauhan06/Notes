@@ -113,10 +113,11 @@
         android:id="@+id/note_tags_chip_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_margin="16dp"
+        android:paddingBottom="8dp"
         app:singleLine="false"
-        app:chipSpacing="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:singleSelection="false"
+        app:chipSpacing="8dp"/>
 
 
 </LinearLayout>

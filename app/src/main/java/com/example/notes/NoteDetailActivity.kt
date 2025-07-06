@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -71,6 +72,10 @@ class NoteDetailActivity : AppCompatActivity() {
             }
         }
 
+        val testTags = listOf("Work", "Urgent", "Personal")
+        displayTags(testTags, chipGroup)
+
+
         // save note
         saveButton.setOnClickListener {
             val title = titleText.text.toString()
@@ -119,6 +124,21 @@ class NoteDetailActivity : AppCompatActivity() {
             }
 
             finish() // goes back to AllNotes
+        }
+    }
+
+    private fun displayTags(tags: List<String>, chipGroup: ChipGroup) {
+        chipGroup.removeAllViews() // clears previous chips
+
+        for (tag in tags) {
+            val chip = Chip(this)
+            chip.text = tag
+            chip.isClickable = false
+            chip.isCheckable = false
+            chip.setChipBackgroundColorResource(R.color.grey_bg_text)
+            chip.setTextColor(resources.getColor(R.color.black, null))
+
+            chipGroup.addView(chip)
         }
     }
 }
