@@ -5,6 +5,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.appcompat.widget.Toolbar
@@ -18,6 +19,7 @@ class NoteDetailActivity : AppCompatActivity() {
 
     private lateinit var notesViewModel: NotesViewModel
     private var existingNote: Notes? = null
+    private var tagList = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,9 @@ class NoteDetailActivity : AppCompatActivity() {
         val lastModifiedText = findViewById<TextView>(R.id.last_modified_date)
 
         val chipGroup = findViewById<ChipGroup>(R.id.note_tags_chip_group)
+
+        val tagInput = findViewById<EditText>(R.id.tag_input)
+        val tagAddButton = findViewById<TextView>(R.id.tag_add_button)
 
         // toolbar actions: back
         backButton.setOnClickListener {
@@ -68,12 +73,35 @@ class NoteDetailActivity : AppCompatActivity() {
                     val formatter = SimpleDateFormat("d MMM yy HH:mm a", Locale.getDefault())
                     val formattedDate = formatter.format(Date(it.lastModified))
                     lastModifiedText.text = "Last modified: $formattedDate"
+
+                    // to display tags as chips
+                    tagList.clear()
+                    tagList.addAll(it.tags)
+                    displayTags(tagList, chipGroup)
                 }
             }
         }
 
-        val testTags = listOf("Work", "Urgent", "Personal")
-        displayTags(testTags, chipGroup)
+        // adding a tag
+        tagAddButton.setOnClickListener {
+            val tagInputText = tagInput.text.toString().trim()
+
+            if (tagInputText.isEmpty()) {
+                Toast.makeText(this, "Please enter a tag", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val tag = "#$tagInputText"
+
+            if (tagList.any { it.equals(tag, ignoreCase = true) }) {
+                Toast.makeText(this, "Tag already exists", Toast.LENGTH_SHORT).show()
+            } else {
+                tagList.add(tag)
+                displayTags(tagList, chipGroup)
+            }
+
+            tagInput.text.clear()
+        }
 
 
         // save note
@@ -96,7 +124,7 @@ class NoteDetailActivity : AppCompatActivity() {
                     content = content,
                     createdAt = System.currentTimeMillis(),
                     lastModified = System.currentTimeMillis(),
-                    tags = emptyList()
+                    tags = tagList
                 )
                 notesViewModel.insert(newNote)
                 Toast.makeText(this, "Note saved!", Toast.LENGTH_SHORT).show()
@@ -109,7 +137,7 @@ class NoteDetailActivity : AppCompatActivity() {
                         content = content,
                         createdAt = note.createdAt,
                         lastModified = System.currentTimeMillis(),
-                        tags = note.tags
+                        tags = tagList
                     )
                     notesViewModel.update(updateNote)
                     Toast.makeText(this, "Note Updated!", Toast.LENGTH_SHORT).show()
@@ -131,13 +159,27 @@ class NoteDetailActivity : AppCompatActivity() {
         chipGroup.removeAllViews() // clears previous chips
 
         for (tag in tags) {
-            val chip = Chip(this)
-            chip.text = tag
-            chip.isClickable = false
-            chip.isCheckable = false
-            chip.setChipBackgroundColorResource(R.color.grey_bg_text)
-            chip.setTextColor(resources.getColor(R.color.black, null))
+            val chip = Chip(this).apply {
+                text = tag
+                isClickable = true
+                isCheckable = false
+                setChipBackgroundColorResource(R.color.grey_bg_text)
+                setTextColor(resources.getColor(R.color.black, null))
 
+                // long press to delete
+                setOnLongClickListener {
+                    AlertDialog.Builder(this@NoteDetailActivity)
+                        .setTitle("Remove Tag")
+                        .setMessage("Do you want to delete \"$tag\"?")
+                        .setPositiveButton("Delete") { _, _ ->
+                            tagList.remove(tag)
+                            displayTags(tagList, chipGroup)
+                        }
+                        .setNegativeButton("Cancel", null)
+                        .show()
+                    true
+                }
+            }
             chipGroup.addView(chip)
         }
     }
