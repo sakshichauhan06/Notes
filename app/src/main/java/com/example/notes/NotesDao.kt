@@ -27,6 +27,9 @@ interface NotesDao {
     @Query("SELECT * FROM notes WHERE isFavorite = 1")
     fun getFavNotes(): Flow<List<Notes>>
 
+    @Query("SELECT tags from notes")
+    fun getAllTags(): List<List<String>>
+
     @Query("SELECT * FROM notes WHERE tags LIKE '%' || :tag || '%'")
     fun getNotesByTag(tag: String): Flow<List<Notes>>
 }
