@@ -47,6 +47,6 @@ class TagNotesFragment : Fragment() {
 
         notesViewModel.getNoteByTag(tag).observe(viewLifecycleOwner) { notes ->
             notesAdapter.updateNotes(notes)
+        }
     }
-
 }

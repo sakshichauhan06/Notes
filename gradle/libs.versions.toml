@@ -13,6 +13,7 @@ materialVersion = "1.11.0"
 roomVersion = "2.6.1"
 ksp = "2.1.10-1.0.31"
 lifecycle = "2.8.7"
+navigation = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
