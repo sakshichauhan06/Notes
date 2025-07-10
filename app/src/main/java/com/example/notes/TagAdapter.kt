@@ -34,6 +34,5 @@ class TagAdapter (
     }
 
     override fun getItemCount(): Int = tags.size
-    }
-
 }
+

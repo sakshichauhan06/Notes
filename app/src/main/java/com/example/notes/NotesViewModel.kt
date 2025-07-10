@@ -9,9 +9,14 @@ import kotlinx.coroutines.launch
 class NotesViewModel(private val repository: NotesRepository) : ViewModel(){
     val allNotes: LiveData<List<Notes>> = repository.allNotes.asLiveData()
     val favNotes: LiveData<List<Notes>> = repository.favNotes.asLiveData()
-    val tagNotes: LiveData<List<Notes>> = repository.tagNotes.asLiveData()
 
     fun getNoteById(id: Int): LiveData<Notes> = repository.getNoteById(id).asLiveData()
+    fun getNoteByTag(tag: String): LiveData<List<Notes>> = repository.getNoteByTag(tag).asLiveData()
+
+    fun getAllTags(): List<String> {
+        return repository.getAllTags()
+    }
+
 
     fun insert(notes: Notes) = viewModelScope.launch {
         repository.insert(notes)

@@ -10,34 +10,55 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class TagsFragment : Fragment() {
-
-    private lateinit var tagNotesAdapter: NotesAdapter
-    private lateinit var tagNotesViewModel: NotesViewModel
+    private lateinit var notesViewModel: NotesViewModel
+    private lateinit var tagAdapter: TagAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tags, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.tags)
+        // initialize ViewModel
+        val dao = NotesDatabase.getDatabase(requireContext()).notesDao()
+        val repository = NotesRepository(dao)
+        val factory = NotesViewModelFactory(repository)
+        notesViewModel = ViewModelProvider(this, factory) [NotesViewModel::class.java]
+
+        // initialize RecyclerView
+        val recyclerView = view.findViewById<RecyclerView>(R.id.notes_by_tag_recycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val tagNotesDao = NotesDatabase.getDatabase(requireContext().applicationContext).notesDao()
-        val tagRepository = NotesRepository(tagNotesDao)
-        val tagFactory = NotesViewModelFactory(tagRepository)
-        tagNotesViewModel = ViewModelProvider(requireActivity(), tagFactory)[NotesViewModel::class.java]
+        tagAdapter = TagAdapter(emptyList()) { selectedTag ->
+            // on tag click then navigate to TagNotesFragment and pass the tag
+            val action = TagsFragmentDirections.actionTagsFragmentToTagNotesFragment(selectedTag)
+            findNavController().navigate(action)
+        }
 
-        tagNotesAdapter = NotesAdapter(emptyList(), tagNotesViewModel)
-        recyclerView.adapter = tagNotesAdapter
+        recyclerView.adapter = tagAdapter
 
-        tagNotesViewModel.tagNotes.observe(viewLifecycleOwner) { notes ->
-            tagNotesAdapter.updateNotes(notes)
+        // observe notes to extract tags
+        notesViewModel.allNotes.observe(viewLifecycleOwner) { notes ->
+            val tagCountMap = mutableMapOf<String, Int>()
+
+            for (note in notes) {
+                for (tag in note.tags) {
+                    val lowerTag = tag.lowercase()
+                    tagCountMap[lowerTag] = tagCountMap.getOrDefault(lowerTag, 0) + 1
+                }
+            }
+
+            val tagList = tagCountMap.map { (tag, count) ->
+                TagWithCount(tag, count)
+            }
+
+            tagAdapter.updateTags(tagList)
         }
     }
+
 }
