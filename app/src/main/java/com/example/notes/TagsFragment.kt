@@ -35,9 +35,14 @@ class TagsFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         tagAdapter = TagAdapter(emptyList()) { selectedTag ->
-            // on tag click then navigate to TagNotesFragment and pass the tag
-            val action = TagsFragmentDirections.actionTagsFragmentToTagNotesFragment(selectedTag)
-            findNavController().navigate(action)
+            // navigate to TagNotesFragment with the selected tag manually
+            val tagNotesFragment = TagNotesFragment()
+            val bundle = Bundle()
+            bundle.putString("selectedTag", selectedTag)
+            tagNotesFragment.arguments = bundle
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, tagNotesFragment)
         }
 
         recyclerView.adapter = tagAdapter
