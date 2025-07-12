@@ -1,5 +1,6 @@
 package com.example.notes
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -36,13 +37,9 @@ class TagsFragment : Fragment() {
 
         tagAdapter = TagAdapter(emptyList()) { selectedTag ->
             // navigate to TagNotesFragment with the selected tag manually
-            val tagNotesFragment = TagNotesFragment()
-            val bundle = Bundle()
-            bundle.putString("selectedTag", selectedTag)
-            tagNotesFragment.arguments = bundle
-
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, tagNotesFragment)
+            val intent = Intent(requireContext(), TagsNotesActivity::class.java)
+            intent.putExtra("selectedTag", selectedTag)
+            startActivity(intent)
         }
 
         recyclerView.adapter = tagAdapter

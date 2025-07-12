@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class TagAdapter (
-    private val tags: List<TagWithCount>,
+    private var tags: List<TagWithCount>,
     private val onTagClick: (String) -> Unit
 ) : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
 
@@ -34,5 +34,11 @@ class TagAdapter (
     }
 
     override fun getItemCount(): Int = tags.size
+
+    fun updateTags(newTags: List<TagWithCount>) {
+        tags = newTags
+        notifyDataSetChanged()
+    }
+
 }
 
