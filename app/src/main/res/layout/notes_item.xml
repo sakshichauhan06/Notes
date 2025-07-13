@@ -65,7 +65,7 @@
             android:id="@+id/notes_divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/black"
+            android:background="@color/grey_bg"
             app:layout_constraintBottom_toBottomOf="@+id/notes_items"
             app:layout_constraintTop_toBottomOf="parent" />
 
