@@ -163,8 +163,8 @@ class NoteDetailActivity : AppCompatActivity() {
                 text = tag
                 isClickable = true
                 isCheckable = false
-                setChipBackgroundColorResource(R.color.grey_bg_text)
-                setTextColor(resources.getColor(R.color.black, null))
+                setChipBackgroundColorResource(R.color.black)
+                setTextColor(resources.getColor(R.color.white, null))
 
                 // long press to delete
                 setOnLongClickListener {

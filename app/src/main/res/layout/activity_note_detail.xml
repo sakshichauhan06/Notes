@@ -140,6 +140,7 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/note_tags_chip_group"
+        style="@style/BlackChipStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
