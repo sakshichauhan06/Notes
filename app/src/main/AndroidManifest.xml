@@ -22,7 +22,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".NoteDetailActivity" />
+        <activity
+            android:name=".NoteDetailActivity"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity android:name=".TagsNotesActivity" />
     </application>
 

@@ -15,7 +15,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/edit_notes_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="48dp"
             android:background="@color/white"
             android:theme="@style/ThemeOverlay.AppCompat.Light"
             app:title="">
@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp"
-        android:layout_marginBottom="8dp">
+        android:fitsSystemWindows="true">
 
         <EditText
             android:id="@+id/tag_input"
