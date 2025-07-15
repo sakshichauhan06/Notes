@@ -1,17 +1,29 @@
 <!-- fragment_tag_notes.xml -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/selected_tag_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tag Notes"
-        android:textSize="18sp"
-        android:layout_margin="16dp"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tags_list_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/grey_bg"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="">
+
+        <TextView
+            android:id="@+id/selected_tag_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tag Notes"
+            android:textColor="@color/grey_notes_text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_margin="16dp"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tag_notes_recycler"
