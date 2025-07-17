@@ -1,5 +1,9 @@
 # 📝 Notes App
 
+<p align="center">
+  <img src="media/Notes_logo.svg" alt="Notes App Logo" width="120" />
+</p>
+
 A clean and modern Android Notes App built using Kotlin. This app lets users create, edit, delete, and organize their notes using **tags** and **favorites**. It also features **tab navigation**, **room database integration**, and a beautiful **UI** built with XML (no Jetpack Compose).
 
 ---
