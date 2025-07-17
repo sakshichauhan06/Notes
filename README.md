@@ -33,7 +33,7 @@ A clean and modern Android Notes App built using Kotlin. This app lets users cre
 ## 🖼️ Screenshots
 
 ### ➤ Notes Tab
-<img src="media/splash_screen.png" width="300"/>
+<img src="media/home.png" width="300"/>
 
 ### ➤ Tags Tab
 <img src="media/tags_page.png" width="300"/>
