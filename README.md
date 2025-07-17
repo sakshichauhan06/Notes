@@ -7,7 +7,7 @@ A clean and modern Android Notes App built using Kotlin. This app lets users cre
 ## 📱 App Demo
 
 <p align="center">
-  <img src="media/notes-demo.gif" width="300" />
+  <img src="media/Notes_app_demo.gif" width="300" />
 </p>
 
 
